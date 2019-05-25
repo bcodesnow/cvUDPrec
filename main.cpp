@@ -125,10 +125,10 @@ void* streamClient(void* arg)
 
     //inet_aton() converts the Internet host address cp from the IPv4 numbers-and-dots notation into binary form (in network byte order) and stores it in the structure that inp points to.
 
-    //if (inet_aton("192.168.2.117", &send_addr.sin_addr) == 0)
-    //    std::cout<<"Inet Aton Failed"<<endl;
-    if (inet_aton("127.0.0.1", &send_addr.sin_addr) == 0)
+    if (inet_aton("192.168.8.204", &send_addr.sin_addr) == 0)
         std::cout<<"Inet Aton Failed"<<endl;
+//    if (inet_aton("127.0.0.1", &send_addr.sin_addr) == 0)
+//        std::cout<<"Inet Aton Failed"<<endl;
     int slen=sizeof(send_addr);
     socklen_t socksize = sizeof(send_addr);
 
@@ -152,7 +152,7 @@ void* streamClient(void* arg)
 
         //if (recvfrom(fd, &(*ret)[0], BUFFLEN, 0, (struct sockaddr*) &send_addr, &socksize ) < 0)
         int recSize = recvfrom(fd, buf, BUFFLEN, 0, (struct sockaddr*) &send_addr, &socksize );
-        std::cout<<"RecSize: "<< recSize<<endl;
+        //std::cout<<"RecSize: "<< recSize<<endl;
         if (recSize < 0)
         {
             //cerr << "\n--> bytes = " << bytes << endl;
@@ -177,18 +177,21 @@ void* streamClient(void* arg)
                 imshow("ASASD", decodedImage);
             }
             jpgbuf.clear();
+            if( waitKey(10) == 27 ) break;
+
+
 
         }
         //we did it..
         //is_data_ready = 1;
         counter++;;
         //puts(buf);
-        for(std::vector<unsigned char>::iterator it=ret->begin(); it<ret->end();it++)
-        {
+//        for(std::vector<unsigned char>::iterator it=ret->begin(); it<ret->end();it++)
+//        {
 
-            //std::cout<<*it;
-        }
-        puts(buf);
+//            //std::cout<<*it;
+//        }
+        //puts(buf);
 
 
     }
@@ -197,7 +200,7 @@ void* streamClient(void* arg)
     std::cout<<"Mutexwait"<<endl;
     pthread_mutex_unlock(&mutex1);
 
-    cout << "\n This was the " << counter++ << "--> th package\n\n" <<endl;
+    //cout << "\n This was the " << counter++ << "--> th package\n\n" <<endl;
 
     /* have we terminated yet? */
     pthread_testcancel();
